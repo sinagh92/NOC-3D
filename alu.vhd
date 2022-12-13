@@ -17,10 +17,10 @@
 -- Additional Comments: 
 --
 ----------------------------------------------------------------------------------
-library IEEE;
-use IEEE.STD_LOGIC_1164.ALL;
-use IEEE.std_logic_unsigned.all;
-use IEEE.std_logic_arith.all;
+LIBRARY IEEE;
+USE IEEE.STD_LOGIC_1164.ALL;
+USE IEEE.std_logic_unsigned.ALL;
+USE IEEE.std_logic_arith.ALL;
 
 -- Uncomment the following library declaration if using
 -- arithmetic functions with Signed or Unsigned values
@@ -31,26 +31,32 @@ use IEEE.std_logic_arith.all;
 --library UNISIM;
 --use UNISIM.VComponents.all;
 
-entity alu is
-	port(
-			data_a : in std_logic_vector (7 downto 0);
-			data_b : in std_logic_vector (7 downto 0);
-			sel : in std_logic_vector (2 downto 0);
-			data_out : out std_logic_vector (7 downto 0)
-		);
-end alu;
+ENTITY alu IS
+	PORT (
+		data_a : IN STD_LOGIC_VECTOR (7 DOWNTO 0);
+		data_b : IN STD_LOGIC_VECTOR (7 DOWNTO 0);
+		sel : IN STD_LOGIC_VECTOR (2 DOWNTO 0);
+		data_out : OUT STD_LOGIC_VECTOR (7 DOWNTO 0)
+	);
+END alu;
 
-architecture Behavioral of alu is
+ARCHITECTURE Behavioral OF alu IS
 
-begin
-	data_out <= data_a + data_b when sel = "001"
-			else data_a - data_b when sel = "010"
-			else data_a and data_b when sel = "011"
-			else data_a or data_b when sel = "100"
-			else not data_a when sel = "101"
-			else data_a xor data_b when sel = "110"
-			else data_a nand data_b when sel = "111"
-			else (others=>'0');
+BEGIN
+	data_out <= data_a + data_b WHEN sel = "001"
+		ELSE
+		data_a - data_b WHEN sel = "010"
+		ELSE
+		data_a AND data_b WHEN sel = "011"
+		ELSE
+		data_a OR data_b WHEN sel = "100"
+		ELSE
+		NOT data_a WHEN sel = "101"
+		ELSE
+		data_a XOR data_b WHEN sel = "110"
+		ELSE
+		data_a NAND data_b WHEN sel = "111"
+		ELSE
+		(OTHERS => '0');
 
-end Behavioral;
-
+END Behavioral;

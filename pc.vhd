@@ -17,10 +17,10 @@
 -- Additional Comments: 
 --
 ----------------------------------------------------------------------------------
-library IEEE;
-use IEEE.STD_LOGIC_1164.ALL;
-use IEEE.std_logic_unsigned.all;
-use IEEE.std_logic_arith.all;
+LIBRARY IEEE;
+USE IEEE.STD_LOGIC_1164.ALL;
+USE IEEE.std_logic_unsigned.ALL;
+USE IEEE.std_logic_arith.ALL;
 
 -- Uncomment the following library declaration if using
 -- arithmetic functions with Signed or Unsigned values
@@ -31,31 +31,30 @@ use IEEE.std_logic_arith.all;
 --library UNISIM;
 --use UNISIM.VComponents.all;
 
-entity pc is
-	port(
-			clk :  in std_logic;
-			en : in std_logic;
-			pc_out : out std_logic_vector(4 downto 0)
-			);
-end pc;
+ENTITY pc IS
+	PORT (
+		clk : IN STD_LOGIC;
+		en : IN STD_LOGIC;
+		pc_out : OUT STD_LOGIC_VECTOR(4 DOWNTO 0)
+	);
+END pc;
 
-architecture Behavioral of pc is
-signal counter : std_logic_vector(4 downto 0) := "00000";
+ARCHITECTURE Behavioral OF pc IS
+	SIGNAL counter : STD_LOGIC_VECTOR(4 DOWNTO 0) := "00000";
 
-begin
-	process(clk)
-	begin
-		if rising_edge(clk) then
-			if( en = '1') then
-				if(counter = "00111") then
+BEGIN
+	PROCESS (clk)
+	BEGIN
+		IF rising_edge(clk) THEN
+			IF (en = '1') THEN
+				IF (counter = "00111") THEN
 					counter <= "00000";
-					else
+				ELSE
 					counter <= counter + "00001";
-				end if;
-			end if;
-		end if;
-	end process;
+				END IF;
+			END IF;
+		END IF;
+	END PROCESS;
 
 	pc_out <= counter;
-end Behavioral;
-
+END Behavioral;

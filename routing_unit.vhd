@@ -17,8 +17,8 @@
 -- Additional Comments: 
 --
 ----------------------------------------------------------------------------------
-library IEEE;
-use IEEE.STD_LOGIC_1164.ALL;
+LIBRARY IEEE;
+USE IEEE.STD_LOGIC_1164.ALL;
 
 -- Uncomment the following library declaration if using
 -- arithmetic functions with Signed or Unsigned values
@@ -29,41 +29,47 @@ use IEEE.STD_LOGIC_1164.ALL;
 --library UNISIM;
 --use UNISIM.VComponents.all;
 
-entity routing_unit is
-	port(
-		en : in std_logic;
-		data_in : in std_logic_vector(31 downto 0);
-		out_dir : out std_logic_vector(2 downto 0);
-		current_pos : in std_logic_vector(15 downto 0)
-		);
-end routing_unit;
+ENTITY routing_unit IS
+	PORT (
+		en : IN STD_LOGIC;
+		data_in : IN STD_LOGIC_VECTOR(31 DOWNTO 0);
+		out_dir : OUT STD_LOGIC_VECTOR(2 DOWNTO 0);
+		current_pos : IN STD_LOGIC_VECTOR(15 DOWNTO 0)
+	);
+END routing_unit;
 
-architecture Behavioral of routing_unit is
-signal x_val : std_logic_vector(4 downto 0);
-signal y_val : std_logic_vector(4 downto 0);
-signal z_val : std_logic_vector(4 downto 0);
+ARCHITECTURE Behavioral OF routing_unit IS
+	SIGNAL x_val : STD_LOGIC_VECTOR(4 DOWNTO 0);
+	SIGNAL y_val : STD_LOGIC_VECTOR(4 DOWNTO 0);
+	SIGNAL z_val : STD_LOGIC_VECTOR(4 DOWNTO 0);
 
-signal x_cur : std_logic_vector(4 downto 0);
-signal y_cur : std_logic_vector(4 downto 0);
-signal z_cur : std_logic_vector(4 downto 0);
+	SIGNAL x_cur : STD_LOGIC_VECTOR(4 DOWNTO 0);
+	SIGNAL y_cur : STD_LOGIC_VECTOR(4 DOWNTO 0);
+	SIGNAL z_cur : STD_LOGIC_VECTOR(4 DOWNTO 0);
 
-begin
-	x_val <= data_in(31 downto 27);
-	y_val <= data_in(26 downto 22);
-	z_val <= data_in(21 downto 17);
-	
-	x_cur <= current_pos(15 downto 11);
-	y_cur <= current_pos(10 downto 6);
-	z_cur <= current_pos(5 downto 1);
-	
-	out_dir <= "001" when x_val > x_cur and en = '1'
-			else "010" when x_val < x_cur and en = '1'
-			else "011" when y_val < y_cur and en = '1'
-			else "100" when y_val > y_cur and en = '1'
-			else "101" when z_val > z_cur and en = '1'
-			else "110" when z_val < z_cur and en = '1'
-			else "111" when ((x_val = x_cur) and (y_val = y_cur) and (z_val = z_cur)  and (en = '1'))
-			else "000";
+BEGIN
+	x_val <= data_in(31 DOWNTO 27);
+	y_val <= data_in(26 DOWNTO 22);
+	z_val <= data_in(21 DOWNTO 17);
 
-end Behavioral;
+	x_cur <= current_pos(15 DOWNTO 11);
+	y_cur <= current_pos(10 DOWNTO 6);
+	z_cur <= current_pos(5 DOWNTO 1);
 
+	out_dir <= "001" WHEN x_val > x_cur AND en = '1'
+		ELSE
+		"010" WHEN x_val < x_cur AND en = '1'
+		ELSE
+		"011" WHEN y_val < y_cur AND en = '1'
+		ELSE
+		"100" WHEN y_val > y_cur AND en = '1'
+		ELSE
+		"101" WHEN z_val > z_cur AND en = '1'
+		ELSE
+		"110" WHEN z_val < z_cur AND en = '1'
+		ELSE
+		"111" WHEN ((x_val = x_cur) AND (y_val = y_cur) AND (z_val = z_cur) AND (en = '1'))
+		ELSE
+		"000";
+
+END Behavioral;

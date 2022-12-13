@@ -17,9 +17,9 @@
 -- Additional Comments: 
 --
 ----------------------------------------------------------------------------------
-library IEEE;
-use IEEE.STD_LOGIC_1164.ALL;
-use IEEE.NUMERIC_STD.ALL;
+LIBRARY IEEE;
+USE IEEE.STD_LOGIC_1164.ALL;
+USE IEEE.NUMERIC_STD.ALL;
 -- Uncomment the following library declaration if using
 -- arithmetic functions with Signed or Unsigned values
 --use IEEE.NUMERIC_STD.ALL;
@@ -29,35 +29,36 @@ use IEEE.NUMERIC_STD.ALL;
 --library UNISIM;
 --use UNISIM.VComponents.all;
 
-entity register_file is
-	port(
-		clk :  in std_logic;
-		wr : in std_logic;
-		rd : in std_logic;
-		Ri : in std_logic_vector(2 downto 0);
-		Rj : in std_logic_vector(2 downto 0);
-		Rk : in std_logic_vector(2 downto 0);
-		data_in : in std_logic_vector(7 downto 0);
-		data_out_i : out std_logic_vector(7 downto 0);
-		data_out_j : out std_logic_vector(7 downto 0)
-		);
-end register_file;
+ENTITY register_file IS
+	PORT (
+		clk : IN STD_LOGIC;
+		wr : IN STD_LOGIC;
+		rd : IN STD_LOGIC;
+		Ri : IN STD_LOGIC_VECTOR(2 DOWNTO 0);
+		Rj : IN STD_LOGIC_VECTOR(2 DOWNTO 0);
+		Rk : IN STD_LOGIC_VECTOR(2 DOWNTO 0);
+		data_in : IN STD_LOGIC_VECTOR(7 DOWNTO 0);
+		data_out_i : OUT STD_LOGIC_VECTOR(7 DOWNTO 0);
+		data_out_j : OUT STD_LOGIC_VECTOR(7 DOWNTO 0)
+	);
+END register_file;
 
-architecture Behavioral of register_file is
-type memory_type is array (0 to 7) of std_logic_vector(7 downto 0);
--- initial value for register file
-signal memory : memory_type := ("00000000", "00000001", "00000010",
-                       "00000011","00000100","00000101","00000110","00000111");						  
-begin
-	process(clk)
-	begin
-		if rising_edge(clk) then
-			if(wr = '1') then
+ARCHITECTURE Behavioral OF register_file IS
+	TYPE memory_type IS ARRAY (0 TO 7) OF STD_LOGIC_VECTOR(7 DOWNTO 0);
+	-- initial value for register file
+	SIGNAL memory : memory_type := ("00000000", "00000001", "00000010",
+	"00000011", "00000100", "00000101", "00000110", "00000111");
+BEGIN
+	PROCESS (clk)
+	BEGIN
+		IF rising_edge(clk) THEN
+			IF (wr = '1') THEN
 				memory(to_integer(unsigned(Rk))) <= data_in;
-			end if;
-		end if;
-	end process;
-data_out_i <= memory(to_integer(unsigned(Ri))) when rd = '1' else (others => '0');
-data_out_j <= memory(to_integer(unsigned(Rj))) when rd = '1' else (others => '0');
-end Behavioral;
-
+			END IF;
+		END IF;
+	END PROCESS;
+	data_out_i <= memory(to_integer(unsigned(Ri))) WHEN rd = '1' ELSE
+		(OTHERS => '0');
+	data_out_j <= memory(to_integer(unsigned(Rj))) WHEN rd = '1' ELSE
+		(OTHERS => '0');
+END Behavioral;

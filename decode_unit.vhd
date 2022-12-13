@@ -17,8 +17,8 @@
 -- Additional Comments: 
 --
 ----------------------------------------------------------------------------------
-library IEEE;
-use IEEE.STD_LOGIC_1164.ALL;
+LIBRARY IEEE;
+USE IEEE.STD_LOGIC_1164.ALL;
 
 -- Uncomment the following library declaration if using
 -- arithmetic functions with Signed or Unsigned values
@@ -29,27 +29,32 @@ use IEEE.STD_LOGIC_1164.ALL;
 --library UNISIM;
 --use UNISIM.VComponents.all;
 
-entity decode_unit is
-	port( instruction : in std_logic_vector (31 downto 0);
-			current_pos : in std_logic_vector (15 downto 0);
-			Ri_adr : out std_logic_vector (2 downto 0);
-			Rj_adr : out std_logic_vector (2 downto 0);
-			Rk_adr : out std_logic_vector (2 downto 0);
-			sel : out std_logic_vector (2 downto 0);
-			send_out: out std_logic);
-end decode_unit;
+ENTITY decode_unit IS
+	PORT (
+		instruction : IN STD_LOGIC_VECTOR (31 DOWNTO 0);
+		current_pos : IN STD_LOGIC_VECTOR (15 DOWNTO 0);
+		Ri_adr : OUT STD_LOGIC_VECTOR (2 DOWNTO 0);
+		Rj_adr : OUT STD_LOGIC_VECTOR (2 DOWNTO 0);
+		Rk_adr : OUT STD_LOGIC_VECTOR (2 DOWNTO 0);
+		sel : OUT STD_LOGIC_VECTOR (2 DOWNTO 0);
+		send_out : OUT STD_LOGIC);
+END decode_unit;
 
-architecture Behavioral of decode_unit is
-begin
-	sel <= instruction(2 downto 0) when (instruction(31 downto 16) = current_pos)
-			else "000"; -- opcode;
-	Ri_adr <= instruction(11 downto 9) when (instruction(31 downto 16) = current_pos)
-			else instruction(10 downto 8) when (instruction(16) = '1')
-			else "000";
-	Rj_adr <= instruction(8 downto 6) when (instruction(31 downto 16) = current_pos)
-			else "000";
-	Rk_adr <= instruction(5 downto 3) when (instruction(31 downto 16) = current_pos)
-			else "000";
+ARCHITECTURE Behavioral OF decode_unit IS
+BEGIN
+	sel <= instruction(2 DOWNTO 0) WHEN (instruction(31 DOWNTO 16) = current_pos)
+		ELSE
+		"000"; -- opcode;
+	Ri_adr <= instruction(11 DOWNTO 9) WHEN (instruction(31 DOWNTO 16) = current_pos)
+		ELSE
+		instruction(10 DOWNTO 8) WHEN (instruction(16) = '1')
+		ELSE
+		"000";
+	Rj_adr <= instruction(8 DOWNTO 6) WHEN (instruction(31 DOWNTO 16) = current_pos)
+		ELSE
+		"000";
+	Rk_adr <= instruction(5 DOWNTO 3) WHEN (instruction(31 DOWNTO 16) = current_pos)
+		ELSE
+		"000";
 	send_out <= instruction(16);
-end Behavioral;
-
+END Behavioral;

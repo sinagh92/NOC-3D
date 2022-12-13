@@ -17,9 +17,9 @@
 -- Additional Comments: 
 --
 ----------------------------------------------------------------------------------
-library IEEE;
-use IEEE.STD_LOGIC_1164.ALL;
-use IEEE.NUMERIC_STD.ALL;
+LIBRARY IEEE;
+USE IEEE.STD_LOGIC_1164.ALL;
+USE IEEE.NUMERIC_STD.ALL;
 
 -- Uncomment the following library declaration if using
 -- arithmetic functions with Signed or Unsigned values
@@ -30,50 +30,49 @@ use IEEE.NUMERIC_STD.ALL;
 --library UNISIM;
 --use UNISIM.VComponents.all;
 
-entity instruction_mem_u1 is
-	port(
-		clk :  in std_logic;
-		en : in std_logic;
-		address : in std_logic_vector(4 downto 0);
-		data_out : out std_logic_vector(31 downto 0)
-		);
-end instruction_mem_u1;
+ENTITY instruction_mem_u1 IS
+	PORT (
+		clk : IN STD_LOGIC;
+		en : IN STD_LOGIC;
+		address : IN STD_LOGIC_VECTOR(4 DOWNTO 0);
+		data_out : OUT STD_LOGIC_VECTOR(31 DOWNTO 0)
+	);
+END instruction_mem_u1;
 
-architecture Behavioral of instruction_mem_u1 is
-type memory_type is array (0 to 7) of std_logic_vector(31 downto 0);
-signal memory : memory_type := (
+ARCHITECTURE Behavioral OF instruction_mem_u1 IS
+	TYPE memory_type IS ARRAY (0 TO 7) OF STD_LOGIC_VECTOR(31 DOWNTO 0);
+	SIGNAL memory : memory_type := (
 
--- first test
---											x"08430500",
---											x"08431500",
---											x"08432500",
---											x"08433500",
---											x"08434500",
---											x"08435500",
---											x"08436500",
---											x"08437500"		
+		-- first test
+		--											x"08430500",
+		--											x"08431500",
+		--											x"08432500",
+		--											x"08433500",
+		--											x"08434500",
+		--											x"08435500",
+		--											x"08436500",
+		--											x"08437500"		
 
--- second test	(3rd simulation)
-											x"08031500",
-											x"08032500",
-											x"08033300",
-											x"08034500",
-											x"08035500",
-											x"08036500",
-											x"08037500",
-											x"08030500"									  
-										  );
-begin
-	process(clk)
-	begin
-		if rising_edge(clk) then
-			if(en = '1') then 
+		-- second test	(3rd simulation)
+		x"08031500",
+		x"08032500",
+		x"08033300",
+		x"08034500",
+		x"08035500",
+		x"08036500",
+		x"08037500",
+		x"08030500"
+	);
+BEGIN
+	PROCESS (clk)
+	BEGIN
+		IF rising_edge(clk) THEN
+			IF (en = '1') THEN
 				data_out <= memory(to_integer(unsigned(address)));
-				else
-				data_out <= (others => '0');
-			end if;
-		end if;
-	end process;
+			ELSE
+				data_out <= (OTHERS => '0');
+			END IF;
+		END IF;
+	END PROCESS;
 
-end Behavioral;
-
+END Behavioral;
